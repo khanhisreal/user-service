@@ -4,6 +4,7 @@
 import {
   ConflictException,
   HttpException,
+  Inject,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -20,10 +21,14 @@ import {
   isIdValid,
 } from 'src/utils/constants';
 import { PaginationDto } from './dto/Pagination.dto';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    @Inject('USER_EVENTS_BUS') private eventClient: ClientProxy,
+  ) {}
 
   async getUsers(paginationDto: PaginationDto) {
     const {
@@ -115,6 +120,10 @@ export class UserService {
     if (!deletedUser) {
       throw new NotFoundException('User not found');
     }
+
+    //emit event userId to the task service to remove the user
+    this.eventClient.emit('user-deleted', { userId: id });
+
     return { message: `User ${deletedUser.fullname} deleted successfully` };
   }
 }

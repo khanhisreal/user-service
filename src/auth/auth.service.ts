@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { AuthPayload } from './dto/AuthPayload.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from 'src/user/schemas/user.schema';
+import { User } from 'src/entity/schemas/user.schema';
 import { Model } from 'mongoose';
 import { comparePasswords } from 'src/utils/bcrypt';
 import { JwtService } from '@nestjs/jwt';

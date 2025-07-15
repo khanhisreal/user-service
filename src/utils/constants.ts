@@ -1,5 +1,5 @@
 import mongoose, { FilterQuery } from 'mongoose';
-import { User } from 'src/user/schemas/user.schema';
+import { User } from 'src/entity/schemas/user.schema';
 
 export const DEFAULT_PAGE_SIZE = 10;
 

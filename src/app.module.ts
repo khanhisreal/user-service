@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './user/user.module';
+import { UserModule } from './entity/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ActivityLogModule } from './activity-log/activity-log.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -18,7 +17,6 @@ import { AuthModule } from './auth/auth.module';
       }),
     }),
     UserModule,
-    ActivityLogModule,
     AuthModule,
   ],
   controllers: [],
